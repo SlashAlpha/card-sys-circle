@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="MatchAnalysis" />
+        <module name="DeckSys" />
+        <module name="StraightAnalysis" />
+        <module name="ColorAnalysis" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ColorAnalysis" target="11" />
+      <module name="DeckSys" target="11" />
+      <module name="MatchAnalysis" target="11" />
+      <module name="StraightAnalysis" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ColorAnalysis" options="-parameters" />
+      <module name="DeckSys" options="-parameters" />
+      <module name="MatchAnalysis" options="-parameters" />
+      <module name="StraightAnalysis" options="-parameters" />
+    </option>
+  </component>
+</project>
