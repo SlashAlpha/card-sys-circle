@@ -49,9 +49,9 @@ public class StraightServices implements StraightService {
 
             return straightF;
         } else if (!straightCards.isEmpty() && straightCards.size() > 4) {
-            straightMap.put("straight", straightCards);
+            straightMap.put("Straight", straightCards);
         }
-        System.out.println(straightMap);
+        // System.out.println(straightMap);
         return straightMap;
 
     }
@@ -128,8 +128,10 @@ public class StraightServices implements StraightService {
         }
 
         //return the straight
-        if (straightCards.size() == 5)
-            return straightCards;
+        if (straightCards.size() >= 5) {
+
+            return straightCards.stream().limit(5).collect(Collectors.toList());
+        }
 
         return new ArrayList<>();
     }
@@ -164,10 +166,12 @@ public class StraightServices implements StraightService {
 
         }
         if (sortedCards.size() == 5) {
-            qflush.put(sortedCards.get(0).getColor(), sortedCards.stream().limit(5).collect(Collectors.toList()));
+
+            qflush.put("Straight Flush", sortedCards.stream().limit(5).collect(Collectors.toList()));
+
             if (sortedCards.get(1).getFaceVal() == 3) {
                 qflush.clear();
-                qflush.put("Royal", sortedCards.stream().limit(5).collect(Collectors.toList()));
+                qflush.put("Royal Flush", sortedCards.stream().limit(5).collect(Collectors.toList()));
             }
         }
 

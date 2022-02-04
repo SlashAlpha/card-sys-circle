@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/CardAnalysis.iml" filepath="$PROJECT_DIR$/CardAnalysis.iml" />
       <module fileurl="file://$PROJECT_DIR$/ColorAnalysis/ColorAnalysis.iml" filepath="$PROJECT_DIR$/ColorAnalysis/ColorAnalysis.iml" />
       <module fileurl="file://$PROJECT_DIR$/DeckSys/DeckSys.iml" filepath="$PROJECT_DIR$/DeckSys/DeckSys.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Interpretor/Interpretor.iml" filepath="$PROJECT_DIR$/Interpretor/Interpretor.iml" />
       <module fileurl="file://$PROJECT_DIR$/MatchAnalysis/MatchAnalysis.iml" filepath="$PROJECT_DIR$/MatchAnalysis/MatchAnalysis.iml" />
       <module fileurl="file://$PROJECT_DIR$/StraightAnalysis/StraightAnalysis.iml" filepath="$PROJECT_DIR$/StraightAnalysis/StraightAnalysis.iml" />
     </modules>

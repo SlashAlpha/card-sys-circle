@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="MatchAnalysis" />
+        <module name="Interpretor" />
         <module name="DeckSys" />
         <module name="StraightAnalysis" />
         <module name="ColorAnalysis" />
@@ -16,6 +17,7 @@
     <bytecodeTargetLevel>
       <module name="ColorAnalysis" target="11" />
       <module name="DeckSys" target="11" />
+      <module name="Interpretor" target="11" />
       <module name="MatchAnalysis" target="11" />
       <module name="StraightAnalysis" target="11" />
     </bytecodeTargetLevel>
@@ -24,6 +26,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ColorAnalysis" options="-parameters" />
       <module name="DeckSys" options="-parameters" />
+      <module name="Interpretor" options="-parameters" />
       <module name="MatchAnalysis" options="-parameters" />
       <module name="StraightAnalysis" options="-parameters" />
     </option>

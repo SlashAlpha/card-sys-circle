@@ -11,12 +11,17 @@ import java.util.*;
 public class DeckServices implements DeckService {
 
     private static final List<String> combination = List.of(new String[]{"High Card", "Pair", "Two Pair", "Three Of A Kind", "Straight", "Flush", "Full house", "Four Of A Kind", "Straight Flush", "Royal Flush"});
-    Deck deck = new Deck();
+    Deck deck;
     JmsTemplate jmsTemplate;
 
 
     public DeckServices(JmsTemplate jmsTemplate) {
         this.jmsTemplate = jmsTemplate;
+    }
+
+    @Override
+    public Deck getDeck() {
+        return this.deck;
     }
 
     @Override
