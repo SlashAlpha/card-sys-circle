@@ -3,12 +3,9 @@ package slash.code.straightanalysis.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import slash.code.straightanalysis.config.JmsConfig;
 import slash.code.straightanalysis.model.Card;
 
 import java.util.*;
@@ -146,7 +143,7 @@ public class StraightServices implements StraightService {
             return new HashMap<>();
         }
         try {
-            cardsColorCheck = restTemplate.getForObject("http://localhost:8081/color/check" + mapToCrypt(qflush), String.class);
+            cardsColorCheck = restTemplate.getForObject("http://color:8081/color/check" + mapToCrypt(qflush), String.class);
             if (cardsColorCheck != null) {
                 colors = decryptToMap(cardsColorCheck);
             }
@@ -180,15 +177,15 @@ public class StraightServices implements StraightService {
     }
 
 
-    @JmsListener(destination = JmsConfig.ARTEMIS_TO_STRAIGHT)
-    public void straightServiceCards(@Payload String cardsString) {
-
-
-        Map<String, List<Card>> cardMap = decryptToMap(cardsString);
-
-        cardMap = straightFinder(cardMap);
-
-    }
+//    @JmsListener(destination = JmsConfig.ARTEMIS_TO_STRAIGHT)
+//    public void straightServiceCards(@Payload String cardsString) {
+//
+//
+//        Map<String, List<Card>> cardMap = decryptToMap(cardsString);
+//
+//        cardMap = straightFinder(cardMap);
+//
+//    }
 
 
     @Override

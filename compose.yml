@@ -1,0 +1,43 @@
+version: '2'
+services:
+  color-analysis:
+    container_name: color
+    build:
+      context: ColorAnalysis
+      dockerfile: Dockerfile
+    image: slashuzero/multi-card-analysis:color-analysis
+    ports:
+      - "8081:8081"
+
+  match-analysis:
+    container_name: match
+    build:
+      context: MatchAnalysis
+      dockerfile: Dockerfile
+    image: slashuzero/multi-card-analysis:match-analysis
+    ports:
+      - "8083:8083"
+
+  deck-sys:
+    container_name: deck
+    build:
+      context: DeckSys
+      dockerfile: Dockerfile
+    image: slashuzero/multi-card-analysis:deck-sys
+    ports:
+      - "8082:8082"
+
+  straight-analysis:
+    container_name: straight
+    build:
+      context: StraightAnalysis
+      dockerfile: Dockerfile
+    image: slashuzero/multi-card-analysis:straight-analysis
+    ports:
+      - "8084:8084"
+
+
+
+
+
+

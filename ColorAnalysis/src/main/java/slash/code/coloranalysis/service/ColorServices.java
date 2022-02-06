@@ -1,11 +1,8 @@
 package slash.code.coloranalysis.service;
 
 
-import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
-import slash.code.coloranalysis.config.JmsConfig;
 import slash.code.coloranalysis.model.Card;
 
 import java.util.*;
@@ -45,12 +42,12 @@ public class ColorServices implements ColorService {
         return colorMap;
     }
 
-    @JmsListener(destination = JmsConfig.ARTEMIS_TO_COLOR)
-    public String straightColor(@Payload String cardsString) {
-        System.out.println("sending back color results");
-
-        return mapToCrypt(color(decryptToMap(cardsString)));
-    }
+//    @JmsListener(destination = JmsConfig.ARTEMIS_TO_COLOR)
+//    public String straightColor(@Payload String cardsString) {
+//        System.out.println("sending back color results");
+//
+//        return mapToCrypt(color(decryptToMap(cardsString)));
+//    }
 
     @Override
     public Map<String, List<Card>> decryptToMap(String cardMap) {

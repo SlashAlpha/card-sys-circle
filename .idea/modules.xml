@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/Interpretor/Interpretor.iml" filepath="$PROJECT_DIR$/Interpretor/Interpretor.iml" />
       <module fileurl="file://$PROJECT_DIR$/MatchAnalysis/MatchAnalysis.iml" filepath="$PROJECT_DIR$/MatchAnalysis/MatchAnalysis.iml" />
       <module fileurl="file://$PROJECT_DIR$/StraightAnalysis/StraightAnalysis.iml" filepath="$PROJECT_DIR$/StraightAnalysis/StraightAnalysis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/card-sys-front/card-sys-front.iml" filepath="$PROJECT_DIR$/card-sys-front/card-sys-front.iml" />
     </modules>
   </component>
 </project>

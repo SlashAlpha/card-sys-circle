@@ -1,10 +1,7 @@
 package slash.code.matchanalysis.service;
 
-import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import slash.code.matchanalysis.config.JmsConfig;
 import slash.code.matchanalysis.model.Card;
 
 import java.util.*;
@@ -197,11 +194,11 @@ public class MatchServices implements MatchService {
 
     }
 
-    @JmsListener(destination = JmsConfig.ARTEMIS_TO_MATCH)
-    public void matchArtemis(@PathVariable String cardsMatch) {
-        Map<String, List<Card>> cardMap = decryptToMap(cardsMatch);
-        List<Card> cards = cardMap.get("test");
-        cardMap = matchingCards(cardMap);
-        System.out.println(cardMap);
-    }
+//    @JmsListener(destination = JmsConfig.ARTEMIS_TO_MATCH)
+//    public void matchArtemis(@PathVariable String cardsMatch) {
+//        Map<String, List<Card>> cardMap = decryptToMap(cardsMatch);
+//        List<Card> cards = cardMap.get("test");
+//        cardMap = matchingCards(cardMap);
+//        System.out.println(cardMap);
+//    }
 }

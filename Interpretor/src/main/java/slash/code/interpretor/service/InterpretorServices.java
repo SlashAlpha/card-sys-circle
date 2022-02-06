@@ -35,7 +35,7 @@ public class InterpretorServices implements InterpretorService {
         Map<String, List<Card>> matchCards = cryptToMap(restTemplate.getForObject("http://localhost:8083/match/check" + mapToCrypt(cardMap), String.class));
         Map<String, List<Card>> colorCards = cryptToMap(restTemplate.getForObject("http://localhost:8081/color/check" + mapToCrypt(cardMap), String.class));
         Map<String, List<Card>> straightCards = cryptToMap(restTemplate.getForObject("http://localhost:8084/straight/check" + mapToCrypt(cardMap), String.class));
-        System.out.println(matchCards);
+
 
         if (!matchCards.isEmpty()) {
             String matchResult = matchCards.keySet().stream().iterator().next();
