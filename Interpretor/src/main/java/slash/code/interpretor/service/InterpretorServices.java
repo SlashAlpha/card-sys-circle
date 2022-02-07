@@ -30,6 +30,10 @@ public class InterpretorServices implements InterpretorService {
 
     @Override
     public Map<String, List<Card>> analyseCards(Map<String, List<Card>> cardMap) {
+        Map<String, List<Card>> bestCards = new HashMap<>();
+        if (!cardMap.isEmpty()) {
+            bestCards = cardMap;
+        }
         List<Map<String, List<Card>>> results = new ArrayList<>();
         Integer resultMaps = 0;
         Map<String, List<Card>> matchCards = cryptToMap(restTemplate.getForObject("http://localhost:8083/match/check" + mapToCrypt(cardMap), String.class));
@@ -77,6 +81,8 @@ public class InterpretorServices implements InterpretorService {
         if (!results.isEmpty()) {
             return results.get(0);
         }
+
+
         return new HashMap<>();
     }
 

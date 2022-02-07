@@ -4,7 +4,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import slash.code.interpretor.model.Card;
 import slash.code.interpretor.service.InterpretorService;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @CrossOrigin("*")
 @RestController
@@ -73,7 +79,16 @@ public class Controller {
     @GetMapping("/analysis/{cards}")
     public ResponseEntity<String> analysis(@PathVariable String cards) {
         if (cards != null) {
-            return new ResponseEntity<String>(interpretorService.mapToCrypt(interpretorService.analyseCards(interpretorService.cryptToMap(cards))), HttpStatus.OK);
+            Map<String, List<Card>> results = interpretorService.cryptToMap(cards);
+            if (!interpretorService.analyseCards(results).isEmpty()) {
+                return new ResponseEntity<String>(interpretorService.mapToCrypt(interpretorService.analyseCards(results)), HttpStatus.OK);
+            } else if (interpretorService.analyseCards(results).isEmpty()) {
+                List<Card> bestCards = interpretorService.cryptToMap(cards).get("test");
+                bestCards = bestCards.stream().sorted(Comparator.comparingInt(Card::getValue).thenComparingInt(Card::getFaceVal).reversed()).limit(1).collect(Collectors.toList());
+                results.clear();
+                results.put("best card", bestCards);
+                return new ResponseEntity<String>(interpretorService.mapToCrypt(results), HttpStatus.OK);
+            }
         }
         return new ResponseEntity<String>("", HttpStatus.BAD_REQUEST);
     }
