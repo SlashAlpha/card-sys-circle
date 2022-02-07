@@ -80,6 +80,14 @@ public class InterpretorServices implements InterpretorService {
         return new HashMap<>();
     }
 
+
+    @Override
+    public String straightAnalysis(Map<String, List<Card>> cardMap) {
+        Map<String, List<Card>> straightCards = cryptToMap(restTemplate.getForObject("http://localhost:8084/straight/check" + mapToCrypt(cardMap), String.class));
+        return mapToCrypt(straightCards);
+
+    }
+
     @Override
     public Map<String, List<Card>> getCards(Integer number) {
         String cards = restTemplate.getForObject("http://localhost:8082/deck/cards" + number, String.class);

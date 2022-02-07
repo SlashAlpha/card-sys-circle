@@ -11,6 +11,8 @@ public interface InterpretorService {
 
     Card getOneCard();
 
+    String straightAnalysis(Map<String, List<Card>> cardMap);
+
     Map<String, List<Card>> getCards(Integer number);
 
     Map<String, List<Card>> analyseCards(Map<String, List<Card>> cardMap);
