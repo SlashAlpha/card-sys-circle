@@ -13,6 +13,7 @@ export class AppComponent {
   cardsString = "";
   cardsResults: Card[] = [];
   result = "";
+  timing = "";
   private BASEURL = "http://localhost:8085/interpretor/";
   private cardMap = new Map<string, Array<Card>>();
 
@@ -28,13 +29,14 @@ export class AppComponent {
 
 
   analyse() {
-
+    var t0 = performance.now();
     this.http.get(this.BASEURL + "analysis/" + this.cardsString, {responseType: "text"}).subscribe({
         next: (res: string) => {
 
           this.cardsResults = this.cryptToMap(res).values().next().value;
           this.result = this.cryptToMap(res).keys().next().value;
-          console.log(res);
+          var t1 = performance.now();
+          this.timing = "Call to Analyse cards :" + (t1 - t0) + " milliseconds.";
         },
         error: err => {
         }

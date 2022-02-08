@@ -1,4 +1,4 @@
-version: '2'
+version: '2.2'
 services:
   color-analysis:
     container_name: color
@@ -35,6 +35,23 @@ services:
     image: slashuzero/multi-card-analysis:straight-analysis
     ports:
       - "8084:8084"
+  interpretor:
+    container_name: interpretor
+    build:
+      context: Interpretor
+      dockerfile: Dockerfile
+    image: slashuzero/multi-card-analysis:interpretor
+    ports:
+      - "8085:8085"
+
+  card-sys-front:
+    container_name: card-sys-front
+    build:
+      context: card-sys-front
+      dockerfile: Dockerfile
+    image: slashuzero/multi-card-analysis:card-sys-front
+    ports:
+      - "4200:80"
 
 
 

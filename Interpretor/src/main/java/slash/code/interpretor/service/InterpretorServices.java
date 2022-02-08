@@ -12,6 +12,7 @@ public class InterpretorServices implements InterpretorService {
 
     private static final List<String> combination = List.of(new String[]{"High Card", "Pair", "Two Pair", "Three Of A Kind", "Straight", "Flush", "Full House", "Four Of A Kind", "Straight Flush", "Royal Flush"});
     private static final List<String> color = List.of(new String[]{"Diamond", "Spade", "Heart", "Club"});
+    private static final String DECK_ROUTE = "http://deck:8082";
     RestTemplate restTemplate;
 
     public InterpretorServices(RestTemplateBuilder restTemplate) {
@@ -20,7 +21,7 @@ public class InterpretorServices implements InterpretorService {
 
     @Override
     public void initiateDeck() {
-        restTemplate.getForObject("http://localhost:8082/deck/initiate", String.class);
+        restTemplate.getForObject(DECK_ROUTE + "/deck/initiate", String.class);
     }
 
     @Override
@@ -36,9 +37,9 @@ public class InterpretorServices implements InterpretorService {
         }
         List<Map<String, List<Card>>> results = new ArrayList<>();
         Integer resultMaps = 0;
-        Map<String, List<Card>> matchCards = cryptToMap(restTemplate.getForObject("http://localhost:8083/match/check" + mapToCrypt(cardMap), String.class));
-        Map<String, List<Card>> colorCards = cryptToMap(restTemplate.getForObject("http://localhost:8081/color/check" + mapToCrypt(cardMap), String.class));
-        Map<String, List<Card>> straightCards = cryptToMap(restTemplate.getForObject("http://localhost:8084/straight/check" + mapToCrypt(cardMap), String.class));
+        Map<String, List<Card>> matchCards = cryptToMap(restTemplate.getForObject("http://match:8083/match/check" + mapToCrypt(cardMap), String.class));
+        Map<String, List<Card>> colorCards = cryptToMap(restTemplate.getForObject("http://color:8081/color/check" + mapToCrypt(cardMap), String.class));
+        Map<String, List<Card>> straightCards = cryptToMap(restTemplate.getForObject("http://straight:8084/straight/check" + mapToCrypt(cardMap), String.class));
 
 
         if (!matchCards.isEmpty()) {
@@ -96,7 +97,7 @@ public class InterpretorServices implements InterpretorService {
 
     @Override
     public Map<String, List<Card>> getCards(Integer number) {
-        String cards = restTemplate.getForObject("http://localhost:8082/deck/cards" + number, String.class);
+        String cards = restTemplate.getForObject("http://deck:8082/deck/cards" + number, String.class);
         Map<String, List<Card>> cardMap = cryptToMap(cards);
         return cardMap;
     }
