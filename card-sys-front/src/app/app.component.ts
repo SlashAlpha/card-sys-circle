@@ -53,7 +53,7 @@ export class AppComponent {
 
 
   getCards(number: number): Map<string, Array<Card>> {
-    this.http.get(this.BASEURL + "initiatedeck").subscribe();
+   // this.http.get(this.BASEURL + "initiatedeck").subscribe();
     let result = "";
 
 

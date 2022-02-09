@@ -1,0 +1,11 @@
+server:
+  port: "8085"
+
+#deck:
+#  host : "0.0.0.0"
+#color:
+#  host : "0.0.0.0"
+#straight:
+#  host : "0.0.0.0"
+#match:
+#  host : "0.0.0.0"

@@ -1,7 +1,6 @@
 package slash.code.interpretor.controller;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import slash.code.interpretor.model.Card;
@@ -34,20 +33,20 @@ public class Controller {
 //                .header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"" + keyname + "\"")
 //                .body(downloadInputStream.toByteArray());
 //    }
-    private MediaType contentType(String keyname) {
-        String[] arr = keyname.split("\\.");
-        String type = arr[arr.length - 1];
-        switch (type) {
-            case "txt":
-                return MediaType.TEXT_PLAIN;
-            case "png":
-                return MediaType.IMAGE_PNG;
-            case "jpg":
-                return MediaType.IMAGE_JPEG;
-            default:
-                return MediaType.APPLICATION_OCTET_STREAM;
-        }
-    }
+//    private MediaType contentType(String keyname) {
+//        String[] arr = keyname.split("\\.");
+//        String type = arr[arr.length - 1];
+//        switch (type) {
+//            case "txt":
+//                return MediaType.TEXT_PLAIN;
+//            case "png":
+//                return MediaType.IMAGE_PNG;
+//            case "jpg":
+//                return MediaType.IMAGE_JPEG;
+//            default:
+//                return MediaType.APPLICATION_OCTET_STREAM;
+//        }
+//    }
 //    @GetMapping("/list/file/all")
 //    public List listAllFiles(){
 //        return s3Service.listFiles();
@@ -56,14 +55,14 @@ public class Controller {
     @GetMapping("/initiatedeck")
     public void initiateDeck() {
 
-        System.out.println("deck initiated");
+        // System.out.println("deck initiated");
         interpretorService.initiateDeck();
     }
 
     @GetMapping("/get-cards{number}")
     public ResponseEntity<String> getCards(@PathVariable Integer number) {
-        interpretorService.initiateDeck();
-        System.out.println("card request received");
+        //  interpretorService.initiateDeck();
+        //  System.out.println("card request received");
         return new ResponseEntity<String>(interpretorService.mapToCrypt(interpretorService.getCards(number)).toString(), HttpStatus.OK);
     }
 

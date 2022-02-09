@@ -1,18 +1,13 @@
 package slash.code.interpretor.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-
-
 public class S3Services {
-    private Logger logger = LoggerFactory.getLogger(S3Services.class);
+//    private Logger logger = LoggerFactory.getLogger(S3Services.class);
 
 //    @Autowired
 //    private AmazonS3 s3client;
 
-    @Value("${}")
-    private String bucketName;
+//    @Value("${}")
+//    private String bucketName;
 
 //    @Override
 //    public ByteArrayOutputStream downloadFile(String keyName) {

@@ -147,20 +147,13 @@ public class StraightServices implements StraightService {
             if (cardsColorCheck != null) {
                 colors = decryptToMap(cardsColorCheck);
             }
+            sortedCards = colors.entrySet().iterator().next().getValue();
         } catch (NoSuchElementException ignored) {
         }
         qflush.remove("test");
 
-
-        try {
-            sortedCards = colors.entrySet().iterator().next().getValue();
-        } catch (NoSuchElementException e) {
-        }
-
-
         if (!sortedCards.isEmpty()) {
             sortedCards = suiteC(sortedCards, false);
-
         }
         if (sortedCards.size() == 5) {
 

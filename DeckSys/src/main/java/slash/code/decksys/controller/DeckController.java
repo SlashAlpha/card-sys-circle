@@ -16,21 +16,16 @@ import java.util.Map;
 @RequestMapping("/deck")
 public class DeckController {
 
-    Deck deck;
+    private Deck deck;
     DeckService deckService;
 
     public DeckController(DeckService deckService) {
-
         this.deckService = deckService;
     }
 
     @GetMapping("/initiate")
-    public void initiateDeck() {
-
-        this.deck = deckService.getDeck();
-        deck = new Deck();
-
-
+    public Deck initiateDeck() {
+        return this.deck = new Deck();
     }
 
     @GetMapping("/onecard")
@@ -40,10 +35,17 @@ public class DeckController {
 
     @GetMapping("/cards{number}")
     public String getCards(@PathVariable Integer number) {
+        if (deck.getCards().size() < 8) {
+            renewDeck();
+        }
         List<Card> cards = deckService.getCardsFromDeck(this.deck.getCards(), number);
         Map<String, List<Card>> cardMap = new HashMap<>();
         cardMap.put("test", cards);
         return deckService.mapToCrypt(cardMap);
+    }
+
+    private Deck renewDeck() {
+        return this.deck = new Deck();
     }
 
 

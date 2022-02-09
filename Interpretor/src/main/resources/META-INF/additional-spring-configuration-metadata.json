@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "app.match.host.name",
+      "type": "java.lang.String",
+      "description": "Description for app.match.host.name."
+    }
+  ]
+}

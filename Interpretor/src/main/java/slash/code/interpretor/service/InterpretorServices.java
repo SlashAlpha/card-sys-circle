@@ -7,21 +7,40 @@ import slash.code.interpretor.model.Card;
 
 import java.util.*;
 
+
 @Service
 public class InterpretorServices implements InterpretorService {
 
     private static final List<String> combination = List.of(new String[]{"High Card", "Pair", "Two Pair", "Three Of A Kind", "Straight", "Flush", "Full House", "Four Of A Kind", "Straight Flush", "Royal Flush"});
     private static final List<String> color = List.of(new String[]{"Diamond", "Spade", "Heart", "Club"});
-    private static final String DECK_ROUTE = "http://deck:8082";
+
     RestTemplate restTemplate;
 
+//    @Value("${deck.host}")
+//    public String deckHost;
+//
+//    @Value("${match.host}")
+//    private  String matchHost;
+//
+//    @Value("${color.host}")
+//    private  String colorHost;
+//
+//    @Value("${straight.host}")
+//    private  String straightHost;
+
+    private final String DECK_ROUTE = "http://" + "deck" + ":8082";
+    private final String COLOR_ROUTE = "http://" + "color" + ":8081";
+    private final String MATCH_ROUTE = "http://" + "match" + ":8083";
+    private final String STRAIGHT_ROUTE = "http://" + "straight" + ":8084";
+
     public InterpretorServices(RestTemplateBuilder restTemplate) {
+
         this.restTemplate = restTemplate.build();
     }
 
     @Override
     public void initiateDeck() {
-        restTemplate.getForObject(DECK_ROUTE + "/deck/initiate", String.class);
+        restTemplate.getForObject(this.DECK_ROUTE + "/deck/initiate", String.class);
     }
 
     @Override
@@ -36,10 +55,10 @@ public class InterpretorServices implements InterpretorService {
             bestCards = cardMap;
         }
         List<Map<String, List<Card>>> results = new ArrayList<>();
-        Integer resultMaps = 0;
-        Map<String, List<Card>> matchCards = cryptToMap(restTemplate.getForObject("http://match:8083/match/check" + mapToCrypt(cardMap), String.class));
-        Map<String, List<Card>> colorCards = cryptToMap(restTemplate.getForObject("http://color:8081/color/check" + mapToCrypt(cardMap), String.class));
-        Map<String, List<Card>> straightCards = cryptToMap(restTemplate.getForObject("http://straight:8084/straight/check" + mapToCrypt(cardMap), String.class));
+        int resultMaps = 0;
+        Map<String, List<Card>> matchCards = cryptToMap(restTemplate.getForObject(MATCH_ROUTE + "/match/check" + mapToCrypt(cardMap), String.class));
+        Map<String, List<Card>> colorCards = cryptToMap(restTemplate.getForObject(COLOR_ROUTE + "/color/check" + mapToCrypt(cardMap), String.class));
+        Map<String, List<Card>> straightCards = cryptToMap(restTemplate.getForObject(STRAIGHT_ROUTE + "/straight/check" + mapToCrypt(cardMap), String.class));
 
 
         if (!matchCards.isEmpty()) {
@@ -97,9 +116,9 @@ public class InterpretorServices implements InterpretorService {
 
     @Override
     public Map<String, List<Card>> getCards(Integer number) {
+
         String cards = restTemplate.getForObject("http://deck:8082/deck/cards" + number, String.class);
-        Map<String, List<Card>> cardMap = cryptToMap(cards);
-        return cardMap;
+        return cryptToMap(cards);
     }
 
     @Override
@@ -109,23 +128,23 @@ public class InterpretorServices implements InterpretorService {
         }
         String key = cardMap.keySet().stream().iterator().next();
         List<Card> cards = cardMap.get(key);
-        String result = key + "--result--";
+        StringBuilder result = new StringBuilder(key + "--result--");
         int count = 1;
         for (Card card :
                 cards
         ) {
             if (count == cards.size()) {
 
-                result = result + card.getId().toString() + "--data--" + card.getColor() + "--data--" + card.getValue() + "--data--" + card.getFaceVal() + "--data--" + card.getDescription() + "--data--" + card.getNumber();
+                result.append(card.getId().toString()).append("--data--").append(card.getColor()).append("--data--").append(card.getValue()).append("--data--").append(card.getFaceVal()).append("--data--").append(card.getDescription()).append("--data--").append(card.getNumber());
 
             } else {
-                result = result + card.getId().toString() + "--data--" + card.getColor() + "--data--" + card.getValue() + "--data--" + card.getFaceVal() + "--data--" + card.getDescription() + "--data--" + card.getNumber() + "--card--";
+                result.append(card.getId().toString()).append("--data--").append(card.getColor()).append("--data--").append(card.getValue()).append("--data--").append(card.getFaceVal()).append("--data--").append(card.getDescription()).append("--data--").append(card.getNumber()).append("--card--");
             }
             count++;
         }
 
 
-        return result;
+        return result.toString();
     }
 
     @Override

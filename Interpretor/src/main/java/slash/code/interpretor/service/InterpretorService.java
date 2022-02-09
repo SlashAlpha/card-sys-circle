@@ -9,6 +9,7 @@ public interface InterpretorService {
 
     void initiateDeck();
 
+
     Card getOneCard();
 
     String straightAnalysis(Map<String, List<Card>> cardMap);
