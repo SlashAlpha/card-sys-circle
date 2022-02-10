@@ -3,15 +3,13 @@ package slash.code.decksys.service;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 import slash.code.decksys.model.Card;
-import slash.code.decksys.model.Deck;
 
 import java.util.*;
 
 @Service
 public class DeckServices implements DeckService {
 
-    private static final List<String> combination = List.of(new String[]{"High Card", "Pair", "Two Pair", "Three Of A Kind", "Straight", "Flush", "Full house", "Four Of A Kind", "Straight Flush", "Royal Flush"});
-    Deck deck;
+
     JmsTemplate jmsTemplate;
 
 
@@ -19,42 +17,10 @@ public class DeckServices implements DeckService {
         this.jmsTemplate = jmsTemplate;
     }
 
-    @Override
-    public Deck getDeck() {
-        return this.deck;
-    }
-
-    @Override
-    public List<Card> buildNewGameDeck(List<Card> cards) {
-        deck.setCards(new ArrayList<>());
-        CardData baseCards = new CardData();
-
-        Arrays.stream(baseCards.color).forEach(c ->
-
-                Arrays.stream(baseCards.value).forEach(
-                        v -> {
-
-                            if (v == 1)
-                                deck.getCards().add(new Card(UUID.randomUUID(), c, 10, baseCards.faceValue[4], "Ace", cards.size() + 1));
-                            if (v > 1 && v < 10)
-                                deck.getCards().add(new Card(UUID.randomUUID(), c, v, baseCards.faceValue[0], baseCards.description[0], cards.size() + 1));
-                            Arrays.stream(baseCards.faceValue).forEach(f -> {
-                                if (v == 10 && f < 4)
-                                    deck.getCards().add(new Card(UUID.randomUUID(), c, v, baseCards.faceValue[f], baseCards.description[f], cards.size() + 1));
-                            });
-                        }));
-        Collections.shuffle(cards);
-
-        if (cards.size() == 52) {
-            System.out.println("Deck is full and verified : " + cards.size() + " cards");
-        }
-        return cards;
-    }
-
 
     @Override
     public Card getOneCardFromDeck(List<Card> cards) {
-        Card randomCard = new Card();
+        Card randomCard;
 
         randomCard = cards.get(0);
         cards.remove(0);
@@ -68,14 +34,14 @@ public class DeckServices implements DeckService {
         List<Card> returnCards = new ArrayList<>();
 
         while (returnCards.size() < number && number < 53) {
-            Card randomCard = new Card();
+
             returnCards.add(cards.get(0));
             cards.remove(0);
         }
         return returnCards;
     }
 
-    ;
+
 
     @Override
     public String mapToCrypt(Map<String, List<Card>> cardMap) {
@@ -84,23 +50,23 @@ public class DeckServices implements DeckService {
         }
         String key = cardMap.keySet().stream().iterator().next();
         List<Card> cards = cardMap.get(key);
-        String result = key + "--result--";
+        StringBuilder result = new StringBuilder(key + "--result--");
         int count = 1;
         for (Card card :
                 cards
         ) {
             if (count == cards.size()) {
 
-                result = result + card.getId().toString() + "--data--" + card.getColor() + "--data--" + card.getValue() + "--data--" + card.getFaceVal() + "--data--" + card.getDescription() + "--data--" + card.getNumber();
+                result.append(card.getId().toString()).append("--data--").append(card.getColor()).append("--data--").append(card.getValue()).append("--data--").append(card.getFaceVal()).append("--data--").append(card.getDescription()).append("--data--").append(card.getNumber());
 
             } else {
-                result = result + card.getId().toString() + "--data--" + card.getColor() + "--data--" + card.getValue() + "--data--" + card.getFaceVal() + "--data--" + card.getDescription() + "--data--" + card.getNumber() + "--card--";
+                result.append(card.getId().toString()).append("--data--").append(card.getColor()).append("--data--").append(card.getValue()).append("--data--").append(card.getFaceVal()).append("--data--").append(card.getDescription()).append("--data--").append(card.getNumber()).append("--card--");
             }
             count++;
         }
 
 
-        return result;
+        return result.toString();
     }
 
     @Override
@@ -122,14 +88,6 @@ public class DeckServices implements DeckService {
         return resultMap;
     }
 
-    private class CardData {
-        final String[] color = {"Diamond", "Spade", "Heart", "Club"};
-        final Integer[] value = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-        final Integer[] faceValue = {0, 1, 2, 3, 4};
-        final String[] description = {"", "Jack", "Queen", "King"};
 
-        public CardData() {
-        }
-    }
 
 }

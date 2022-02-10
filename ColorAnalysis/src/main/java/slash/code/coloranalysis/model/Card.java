@@ -1,14 +1,15 @@
 package slash.code.coloranalysis.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+
+import lombok.*;
 
 import java.util.UUID;
 
 @Getter
+@RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
+@Setter
 public class Card {
 
     UUID id;
@@ -20,15 +21,12 @@ public class Card {
 
     @Override
     public String toString() {
-        if (description != "") {
+        if (!description.equals("")) {
             return description + " of " + color + " card number : " + number;
         } else {
             return value + " of " + color + " card number : " + number;
         }
     }
 
-    public String stringify() {
-        String card = this.value + "/" + this.color + "/" + this.description + "/" + this.faceVal;
-        return card;
-    }
+
 }

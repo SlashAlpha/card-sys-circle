@@ -1,5 +1,8 @@
 package slash.code.interpretor.service;
 
+import org.springframework.context.annotation.Profile;
+
+@Profile("AWS")
 public class S3Services {
 //    private Logger logger = LoggerFactory.getLogger(S3Services.class);
 

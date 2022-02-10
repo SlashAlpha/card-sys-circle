@@ -19,9 +19,9 @@ public class MatchServices implements MatchService {
     @Override
     public Map<String, List<Card>> matchingCards(Map<String, List<Card>> cardCheck) {
         List<Card> cards = cardCheck.entrySet().stream().iterator().next().getValue();
-        List<Card> matchingCards = new ArrayList<>();
+        List<Card> matchingCards;
         Map<Integer, List<Card>> cardMap = new HashMap<>();
-        Map<String, List<Card>> resultMap = new HashMap<>();
+
 
 
         for (Card card : cards
@@ -174,7 +174,7 @@ public class MatchServices implements MatchService {
         }
         String key = cardMap.keySet().stream().iterator().next();
         List<Card> cards = cardMap.get(key);
-        String result = key + "--result--";
+        StringBuilder result = new StringBuilder(key + "--result--");
         int count = 1;
         for (Card card :
                 cards
@@ -182,23 +182,17 @@ public class MatchServices implements MatchService {
             if (count == cards.size()) {
 
 
-                result = result + card.getId().toString() + "--data--" + card.getColor() + "--data--" + card.getValue() + "--data--" + card.getFaceVal() + "--data--" + card.getDescription() + "--data--" + card.getNumber();
+                result.append(card.getId().toString()).append("--data--").append(card.getColor()).append("--data--").append(card.getValue()).append("--data--").append(card.getFaceVal()).append("--data--").append(card.getDescription()).append("--data--").append(card.getNumber());
 
             } else if (count < cards.size()) {
-                result = result + card.getId().toString() + "--data--" + card.getColor() + "--data--" + card.getValue() + "--data--" + card.getFaceVal() + "--data--" + card.getDescription() + "--data--" + card.getNumber() + "--card--";
+                result.append(card.getId().toString()).append("--data--").append(card.getColor()).append("--data--").append(card.getValue()).append("--data--").append(card.getFaceVal()).append("--data--").append(card.getDescription()).append("--data--").append(card.getNumber()).append("--card--");
             }
             count++;
         }
 
-        return result;
+        return result.toString();
 
     }
 
-//    @JmsListener(destination = JmsConfig.ARTEMIS_TO_MATCH)
-//    public void matchArtemis(@PathVariable String cardsMatch) {
-//        Map<String, List<Card>> cardMap = decryptToMap(cardsMatch);
-//        List<Card> cards = cardMap.get("test");
-//        cardMap = matchingCards(cardMap);
-//        System.out.println(cardMap);
-//    }
+
 }

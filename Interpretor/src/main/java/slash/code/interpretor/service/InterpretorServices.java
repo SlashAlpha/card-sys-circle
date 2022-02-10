@@ -16,22 +16,24 @@ public class InterpretorServices implements InterpretorService {
 
     RestTemplate restTemplate;
 
-//    @Value("${deck.host}")
-//    public String deckHost;
-//
-//    @Value("${match.host}")
-//    private  String matchHost;
-//
-//    @Value("${color.host}")
-//    private  String colorHost;
-//
-//    @Value("${straight.host}")
-//    private  String straightHost;
+/*
+    @Value("${deck.host}")
+    public String deckHost;
 
-    private final String DECK_ROUTE = "http://" + "deck" + ":8082";
-    private final String COLOR_ROUTE = "http://" + "color" + ":8081";
-    private final String MATCH_ROUTE = "http://" + "match" + ":8083";
-    private final String STRAIGHT_ROUTE = "http://" + "straight" + ":8084";
+    @Value("${match.host}")
+    private  String matchHost;
+
+    @Value("${color.host}")
+    private  String colorHost;
+
+    @Value("${straight.host}")
+    private  String straightHost;
+*/
+
+    private static final String DECK_ROUTE = "http://" + "deck" + ":8082";
+    private static final String COLOR_ROUTE = "http://" + "color" + ":8081";
+    private static final String MATCH_ROUTE = "http://" + "match" + ":8083";
+    private static final String STRAIGHT_ROUTE = "http://" + "straight" + ":8084";
 
     public InterpretorServices(RestTemplateBuilder restTemplate) {
 
@@ -40,7 +42,7 @@ public class InterpretorServices implements InterpretorService {
 
     @Override
     public void initiateDeck() {
-        restTemplate.getForObject(this.DECK_ROUTE + "/deck/initiate", String.class);
+        restTemplate.getForObject(DECK_ROUTE + "/deck/initiate", String.class);
     }
 
     @Override
@@ -50,10 +52,7 @@ public class InterpretorServices implements InterpretorService {
 
     @Override
     public Map<String, List<Card>> analyseCards(Map<String, List<Card>> cardMap) {
-        Map<String, List<Card>> bestCards = new HashMap<>();
-        if (!cardMap.isEmpty()) {
-            bestCards = cardMap;
-        }
+
         List<Map<String, List<Card>>> results = new ArrayList<>();
         int resultMaps = 0;
         Map<String, List<Card>> matchCards = cryptToMap(restTemplate.getForObject(MATCH_ROUTE + "/match/check" + mapToCrypt(cardMap), String.class));
@@ -87,7 +86,6 @@ public class InterpretorServices implements InterpretorService {
             String straightResult = straightCards.keySet().stream().iterator().next();
             if (combination.contains(straightResult) && resultMaps < combination.indexOf(straightResult)) {
 
-                resultMaps = combination.indexOf(straightResult);
 
                 if (!results.isEmpty()) {
                     results.clear();

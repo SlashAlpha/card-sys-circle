@@ -16,7 +16,7 @@ public class StraightServices implements StraightService {
 
     JmsTemplate jmsTemplate;
     ObjectMapper objectMapper;
-    Map<String, List<Card>> cardColors = new HashMap<>();
+   // Map<String, List<Card>> cardColors = new HashMap<>();
     RestTemplate restTemplate;
 
     public StraightServices(JmsTemplate jmsTemplate, ObjectMapper objectMapper, RestTemplateBuilder restTemplate) {
@@ -54,7 +54,7 @@ public class StraightServices implements StraightService {
     }
 
 
-    public List<Card> suiteC(List<Card> sortedCards, boolean doublon) {
+    private List<Card> suiteC(List<Card> sortedCards, boolean doublon) {
         //sort the cards in decreasing order
         final List<Card> reverseCards = sortedCards.stream().sorted(Comparator.comparingInt(Card::getValue).thenComparingInt(Card::getFaceVal).reversed()).collect(Collectors.toList());
 
@@ -83,7 +83,7 @@ public class StraightServices implements StraightService {
                     //in case of a straight beginning with an ace, it close the door to the list, checking at 2
 
                     if (cardValue1 == 2 && straightCards.size() == 4 && !aceCards.isEmpty()) {
-                        System.out.println(straightCards);
+
                         if (doublon && !straightCards.containsAll(aceCards)) {
                             straightCards.addAll(aceCards);
                         }
@@ -97,11 +97,11 @@ public class StraightServices implements StraightService {
                     if (!doublons.contains(card)) {
                         doublons.add(card);
                     }
-                    ;
+
                 }
                 //clear the list in case of a miss in the straight,  restart with a new card as it is sorted
-
-            } else if (((cardValue1 + 1) != (cardValue2) || (cardValue1) == (cardValue2)) && straightCards.size() < 5) {
+                //else if (((cardValue1 + 1) != (cardValue2) || (cardValue1) .equals (cardValue2)) && straightCards.size() < 5)
+            } else if (((cardValue1 + 1) != (cardValue2)) && straightCards.size() < 5) {
                 straightCards.clear();
                 straightCards.add(card);
             }
@@ -116,17 +116,12 @@ public class StraightServices implements StraightService {
                     doublons.add(c);
                 }
             }
-            ;
-
-
-            doublons.stream().sorted(Comparator.comparingInt(Card::getValue).thenComparingInt(Card::getFaceVal).reversed()).collect(Collectors.toList());
-
-            return doublons;
+            return doublons.stream().sorted(Comparator.comparingInt(Card::getValue).thenComparingInt(Card::getFaceVal).reversed()).collect(Collectors.toList());
+            //   return doublons;
         }
 
         //return the straight
         if (straightCards.size() >= 5) {
-
             return straightCards.stream().limit(5).collect(Collectors.toList());
         }
 
@@ -138,7 +133,7 @@ public class StraightServices implements StraightService {
         qflush.put("test", straightCards);
         List<Card> sortedCards = new ArrayList<>();
         Map<String, List<Card>> colors = new HashMap<>();
-        String cardsColorCheck = "";
+        String cardsColorCheck;
         if (straightCards.isEmpty()) {
             return new HashMap<>();
         }
@@ -176,7 +171,7 @@ public class StraightServices implements StraightService {
 //
 //        Map<String, List<Card>> cardMap = decryptToMap(cardsString);
 //
-//        cardMap = straightFinder(cardMap);
+//       !!return!! cardMap = straightFinder(cardMap);
 //
 //    }
 
@@ -207,7 +202,7 @@ public class StraightServices implements StraightService {
         }
         String key = cardMap.keySet().stream().iterator().next();
         List<Card> cards = cardMap.get(key);
-        String result = key + "--result--";
+        StringBuilder result = new StringBuilder(key + "--result--");
         int count = 1;
         for (Card card :
                 cards
@@ -215,15 +210,15 @@ public class StraightServices implements StraightService {
             if (count == cards.size()) {
 
 
-                result = result + card.getId().toString() + "--data--" + card.getColor() + "--data--" + card.getValue() + "--data--" + card.getFaceVal() + "--data--" + card.getDescription() + "--data--" + card.getNumber();
+                result.append(card.getId().toString()).append("--data--").append(card.getColor()).append("--data--").append(card.getValue()).append("--data--").append(card.getFaceVal()).append("--data--").append(card.getDescription()).append("--data--").append(card.getNumber());
 
             } else if (count < cards.size()) {
-                result = result + card.getId().toString() + "--data--" + card.getColor() + "--data--" + card.getValue() + "--data--" + card.getFaceVal() + "--data--" + card.getDescription() + "--data--" + card.getNumber() + "--card--";
+                result.append(card.getId().toString()).append("--data--").append(card.getColor()).append("--data--").append(card.getValue()).append("--data--").append(card.getFaceVal()).append("--data--").append(card.getDescription()).append("--data--").append(card.getNumber()).append("--card--");
             }
             count++;
         }
 
-        return result;
+        return result.toString();
 
     }
 

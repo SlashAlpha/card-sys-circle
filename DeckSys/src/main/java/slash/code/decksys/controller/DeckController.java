@@ -28,7 +28,7 @@ public class DeckController {
         return this.deck = new Deck();
     }
 
-    @GetMapping("/onecard")
+    @GetMapping("/oneCard")
     public Card getOneCard() {
         return deckService.getOneCardFromDeck(this.deck.getCards());
     }
@@ -43,6 +43,7 @@ public class DeckController {
         cardMap.put("test", cards);
         return deckService.mapToCrypt(cardMap);
     }
+
 
     private Deck renewDeck() {
         return this.deck = new Deck();

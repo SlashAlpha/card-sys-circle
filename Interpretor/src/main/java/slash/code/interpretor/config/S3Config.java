@@ -1,7 +1,9 @@
 package slash.code.interpretor.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
+@Profile("AWS")
 @Configuration
 public class S3Config {
 

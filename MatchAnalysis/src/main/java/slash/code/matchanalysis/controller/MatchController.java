@@ -24,7 +24,7 @@ public class MatchController {
     public String matchCheck(@PathVariable String cards) {
         Map<String, List<Card>> cardMap = matchService.decryptToMap(cards);
         cardMap = matchService.matchingCards(cardMap);
-        //  if(cardMap.isEmpty()){return "";}
+
         return matchService.mapToCrypt(cardMap);
 
     }

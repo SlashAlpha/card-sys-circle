@@ -21,15 +21,11 @@ public class Card {
 
     @Override
     public String toString() {
-        if (description != "") {
+        if (!description.equals("")) {
             return description + " of " + color + " card number : " + number;
         } else {
             return value + " of " + color + " card number : " + number;
         }
     }
 
-    public String stringify() {
-        String card = this.value + "/" + this.color + "/" + this.description + "/" + this.faceVal;
-        return card;
-    }
 }
