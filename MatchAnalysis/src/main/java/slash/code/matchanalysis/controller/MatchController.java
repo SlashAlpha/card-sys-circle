@@ -22,10 +22,14 @@ public class MatchController {
 
     @GetMapping("/check{cards}")
     public String matchCheck(@PathVariable String cards) {
-        Map<String, List<Card>> cardMap = matchService.decryptToMap(cards);
+        Map<String, List<Card>> cardMap = matchService.cryptToMap(cards);
+        // System.out.println(cardMap);
         cardMap = matchService.matchingCards(cardMap);
+        if (!cardMap.isEmpty()) {
 
-        return matchService.mapToCrypt(cardMap);
+            return matchService.mapToCrypt(cardMap);
+        }
+        return "";
 
     }
 }

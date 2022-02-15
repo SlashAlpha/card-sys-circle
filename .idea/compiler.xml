@@ -15,10 +15,10 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="ColorAnalysis" target="11" />
-      <module name="DeckSys" target="11" />
+      <module name="ColorAnalysis" target="16" />
+      <module name="DeckSys" target="16" />
       <module name="Interpretor" target="11" />
-      <module name="MatchAnalysis" target="11" />
+      <module name="MatchAnalysis" target="16" />
       <module name="StraightAnalysis" target="11" />
     </bytecodeTargetLevel>
   </component>

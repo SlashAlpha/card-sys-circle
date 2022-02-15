@@ -10,5 +10,5 @@ public interface MatchService {
 
     String mapToCrypt(Map<String, List<Card>> cardMap);
 
-    Map<String, List<Card>> decryptToMap(String cardMap);
+    Map<String, List<Card>> cryptToMap(String cardMap);
 }

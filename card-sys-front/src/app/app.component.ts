@@ -163,6 +163,7 @@ class Card {
 
   private _color: string;
 
+
   get color(): string {
     return this._color;
   }

@@ -115,7 +115,7 @@ public class InterpretorServices implements InterpretorService {
     @Override
     public Map<String, List<Card>> getCards(Integer number) {
 
-        String cards = restTemplate.getForObject("http://deck:8082/deck/cards" + number, String.class);
+        String cards = restTemplate.getForObject(DECK_ROUTE + "/deck/cards" + number, String.class);
         return cryptToMap(cards);
     }
 

@@ -149,7 +149,8 @@ public class MatchServices implements MatchService {
     }
 
     @Override
-    public Map<String, List<Card>> decryptToMap(String cardMap) {
+    public Map<String, List<Card>> cryptToMap(String cardMap) {
+        System.out.println(cardMap);
         if (cardMap == null) {
             return new HashMap<>();
         }
