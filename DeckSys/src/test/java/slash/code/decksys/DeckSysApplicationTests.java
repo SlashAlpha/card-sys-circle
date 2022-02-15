@@ -10,6 +10,7 @@ import slash.code.decksys.model.Card;
 import slash.code.decksys.model.Deck;
 import slash.code.decksys.service.DeckService;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -74,9 +75,15 @@ class DeckSysApplicationTests {
     @Test
     public void deckSendingCardTest() throws Exception {
         controller.initiateDeck();
+        List<String> combs2 = new ArrayList<>();
+        combs2.add(color[0]);
+        combs2.add(color[1]);
+        combs2.add(color[2]);
+        combs2.add(color[3]);
+
 
         assertThat(
-                Arrays.stream(color).toList().contains(this.restTemplate.getForObject("http://localhost:" + port + "/deck/oneCard",
+                combs2.contains(this.restTemplate.getForObject("http://localhost:" + port + "/deck/oneCard",
                         Card.class).getColor()))
         ;
     }
