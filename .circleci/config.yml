@@ -6,4 +6,5 @@ workflows:
     example-workflow:
       jobs:
         - maven/test:
-            app_src_directory: /MatchAnalysis 
+            app_src_directory: /MatchAnalysis
+            test_results_path: target/surefire-reports(string) 
