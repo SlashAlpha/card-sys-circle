@@ -6,5 +6,5 @@ workflows:
     example-workflow:
       jobs:
         - maven/test:
-            app_src_directory: MatchAnalysis
+            app_src_directory: DeckSys
  
