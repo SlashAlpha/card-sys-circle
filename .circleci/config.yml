@@ -10,4 +10,6 @@ workflows:
             app_src_directory: DeckSys 
         - maven/test:
             app_src_directory: MatchAnalysis
+        - maven/test:
+            app_src_directory: ColorAnalysis
  
