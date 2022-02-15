@@ -1,11 +1,13 @@
-orbs:
-  maven: circleci/maven@1.1.0
 version: 2.1
+
+orbs:
+  maven: circleci/maven@0.0.12
+
 workflows:
   maven_test:
     jobs:
       - maven/test:
-          app_src_directory: DeckSys
+          app_src_directory: ./DeckSys
       - maven/test:
-          app_src_directory: MatchAnalysis
+          app_src_directory: ./MatchAnalysis
 
