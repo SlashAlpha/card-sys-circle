@@ -10,7 +10,6 @@ import slash.code.matchanalysis.model.Card;
 import slash.code.matchanalysis.service.MatchService;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -82,7 +81,13 @@ class MatchAnalysisApplicationTests {
         final String[] combination = {"Pair", "Two Pair", "Three Of A Kind", "Full House", "Four Of A Kind"};
 
         int one = 0;
-        List<String> combs2 = Arrays.stream(combination).collect(Collectors.toList());
+        List<String> combs2 = new ArrayList<>();
+        combs2.add(combination[0]);
+        combs2.add(combination[1]);
+        combs2.add(combination[2]);
+        combs2.add(combination[3]);
+        combs2.add(combination[4]);
+
 
         List<Card> cards = new ArrayList<>();
         Map<String, List<Card>> cardMap = new HashMap<>();
@@ -177,15 +182,18 @@ class MatchAnalysisApplicationTests {
             return randomCard;
         }
 
-        private static class CardData {
-            static final String[] color = {"Diamond", "Spade", "Heart", "Club"};
-            static final Integer[] value = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-            static final Integer[] faceValue = {0, 1, 2, 3, 4};
-            static final String[] description = {"", "Jack", "Queen", "King"};
 
-            public CardData() {
-            }
+    }
+
+    private static class CardData {
+        static final String[] color = {"Diamond", "Spade", "Heart", "Club"};
+        static final Integer[] value = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        static final Integer[] faceValue = {0, 1, 2, 3, 4};
+        static final String[] description = {"", "Jack", "Queen", "King"};
+
+        public CardData() {
         }
     }
+
 
 }
