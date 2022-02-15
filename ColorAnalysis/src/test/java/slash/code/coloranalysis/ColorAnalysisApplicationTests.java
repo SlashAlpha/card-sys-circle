@@ -1,20 +1,108 @@
 package slash.code.coloranalysis;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.LocalServerPort;
+import slash.code.coloranalysis.controller.ColorController;
 import slash.code.coloranalysis.model.Card;
+import slash.code.coloranalysis.service.ColorService;
 
 import java.util.*;
 
-@SpringBootTest
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ColorAnalysisApplicationTests {
 
+    @Autowired
+    ColorService colorService;
+
+    @Autowired
+    ColorController controller;
+
+    @LocalServerPort
+    private int port;
+
+    @Autowired
+    private TestRestTemplate restTemplate;
+
     @Test
-    void contextLoads() {
+    public void contextLoads() throws Exception {
+        assertThat(controller).isNotNull();
     }
 
 
-    public class Deck {
+    @Test
+    public void testGlobalColor() {
+        Deck deck = new Deck();
+
+        String color = "";
+        Map<String, List<Card>> cardMap = new HashMap<>();
+        List<Card> checkedCards = new ArrayList<>();
+        final Card card = deck.getOneCardFromDeck(deck.cards);
+        color = card.getColor();
+        while (checkedCards.size() < 6) {
+            Card colorCard = deck.getOneCardFromDeck(deck.cards);
+            if (colorCard.getColor().equals(card.getColor())) {
+                checkedCards.add(colorCard);
+            }
+
+        }
+        String colorCheck = "";
+        cardMap.put("test", checkedCards);
+        cardMap = colorService.color(cardMap);
+        for (String key : cardMap.keySet()
+        ) {
+            colorCheck = key;
+
+        }
+        assertTrue(colorCheck.equals(color) && cardMap.get(color).size() == 5);
+
+    }
+
+    @Test
+    public void testGlobalColorRest() {
+        Deck deck = new Deck();
+
+        String color = "";
+        Map<String, List<Card>> cardMap = new HashMap<>();
+        List<Card> checkedCards = new ArrayList<>();
+        final Card card = deck.getOneCardFromDeck(deck.cards);
+        color = card.getColor();
+        while (checkedCards.size() < 6) {
+            Card colorCard = deck.getOneCardFromDeck(deck.cards);
+            if (colorCard.getColor().equals(card.getColor())) {
+                checkedCards.add(colorCard);
+            }
+
+        }
+        String colorCheck = "";
+        cardMap.put("test", checkedCards);
+        String colorRest = colorService.mapToCrypt(cardMap);
+        cardMap = colorService.cryptToMap(restTemplate.getForObject("http://localhost:" + port + "/color/check" + colorRest, String.class));
+        for (String key : cardMap.keySet()
+        ) {
+            colorCheck = key;
+
+        }
+        assertTrue(colorCheck.equals(color) && cardMap.get(color).size() == 5);
+
+    }
+
+    private static class CardData {
+        static final String[] color = {"Diamond", "Spade", "Heart", "Club"};
+        static final Integer[] value = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        static final Integer[] faceValue = {0, 1, 2, 3, 4};
+        static final String[] description = {"", "Jack", "Queen", "King"};
+
+        public CardData() {
+        }
+    }
+
+    private class Deck {
 
         List<Card> cards;
 
@@ -56,15 +144,7 @@ class ColorAnalysisApplicationTests {
             return randomCard;
         }
 
-        private static class CardData {
-            static final String[] color = {"Diamond", "Spade", "Heart", "Club"};
-            static final Integer[] value = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-            static final Integer[] faceValue = {0, 1, 2, 3, 4};
-            static final String[] description = {"", "Jack", "Queen", "King"};
-
-            public CardData() {
-            }
-        }
     }
+
 
 }

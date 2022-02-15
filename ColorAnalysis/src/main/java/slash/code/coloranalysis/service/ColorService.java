@@ -9,7 +9,7 @@ public interface ColorService {
 
     Map<String, List<Card>> color(Map<String, List<Card>> cardMap);
 
-    Map<String, List<Card>> decryptToMap(String cardMap);
+    Map<String, List<Card>> cryptToMap(String cardMap);
 
     String mapToCrypt(Map<String, List<Card>> cardMap);
 }

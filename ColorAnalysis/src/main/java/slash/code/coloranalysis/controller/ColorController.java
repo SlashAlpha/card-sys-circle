@@ -23,7 +23,7 @@ public class ColorController {
     @GetMapping("/check{cards}")
     public String verifyColor(@PathVariable String cards) {
 
-        Map<String, List<Card>> cardMap = colorService.decryptToMap(cards);
+        Map<String, List<Card>> cardMap = colorService.cryptToMap(cards);
         cardMap = colorService.color(cardMap);
 
         return colorService.mapToCrypt(cardMap);

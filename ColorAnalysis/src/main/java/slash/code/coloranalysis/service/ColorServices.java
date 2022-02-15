@@ -45,7 +45,7 @@ public class ColorServices implements ColorService {
 
 
     @Override
-    public Map<String, List<Card>> decryptToMap(String cardMap) {
+    public Map<String, List<Card>> cryptToMap(String cardMap) {
         if (cardMap == null) {
             return new HashMap<>();
         }
