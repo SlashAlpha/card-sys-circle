@@ -8,4 +8,6 @@ workflows:
       jobs:
         - maven/test:
             app_src_directory: DeckSys 
+        - maven/test:
+            app_src_directory: MatchAnalysis
  
